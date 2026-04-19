@@ -281,7 +281,7 @@
       font-weight: var(--font-weight-semi);
       text-decoration: underline;
       text-underline-offset: 3px;
-      min-height: 40px;
+      min-height: 56px;
       padding: var(--space-1) var(--space-1);
     }
 
@@ -1387,6 +1387,341 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-2);
+    }
+
+    /* ---------------------------------------------------------
+       35. BADGE COLLECTION SCREEN
+    --------------------------------------------------------- */
+    .badge-section { margin-top: var(--space-4); }
+    .badge-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+    .badge-section-title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .badge-section-count {
+      font-size: var(--font-size-sm);
+      color: var(--color-accent-gold);
+      font-weight: var(--font-weight-bold);
+    }
+    .badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: var(--space-2);
+    }
+    .badge-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+                  border-color var(--transition-fast);
+      text-align: center;
+      width: 100%;
+    }
+    .badge-card.earned {
+      border-color: var(--color-accent-gold);
+      background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.02));
+    }
+    .badge-card.earned:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-glow-gold);
+    }
+    .badge-card.locked { opacity: 0.38; }
+    .badge-card.locked:hover {
+      transform: translateY(-2px);
+      border-color: var(--color-text-secondary);
+    }
+    .badge-card-emoji {
+      font-size: 40px;
+      line-height: 1;
+      display: block;
+    }
+    .badge-card-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      line-height: var(--line-height-tight);
+    }
+
+    /* Mission medal rows in badge collection */
+    .mission-badge-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      margin-bottom: var(--space-2);
+    }
+    .medal-btn {
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+      line-height: 1;
+      border-radius: var(--radius-sm);
+      transition: transform var(--transition-fast);
+    }
+    .medal-btn:hover { transform: scale(1.2); }
+    .medal-btn.locked { cursor: pointer; }
+
+    /* Badge Detail Modal */
+    .badge-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: var(--space-3);
+      animation: fadeInOverlay 180ms ease both;
+    }
+    @keyframes fadeInOverlay {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .badge-modal {
+      background: var(--color-surface);
+      border: 2px solid var(--color-accent-gold);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5) var(--space-4);
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      animation: modalPopIn 300ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .badge-modal.locked-modal { border-color: var(--color-border); }
+    @keyframes modalPopIn {
+      0%   { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+    .badge-modal-emoji {
+      font-size: 72px;
+      display: block;
+      line-height: 1;
+      margin-bottom: var(--space-2);
+    }
+
+    /* ---------------------------------------------------------
+       36. MISSION MAP SCREEN
+    --------------------------------------------------------- */
+    .mission-world-label {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-top: var(--space-4);
+      margin-bottom: var(--space-2);
+    }
+    .mission-map-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      margin-bottom: var(--space-2);
+    }
+    .mission-map-emoji-cell {
+      font-size: 30px;
+      flex-shrink: 0;
+      width: 42px;
+      text-align: center;
+      padding-top: 2px;
+    }
+    .mission-map-body { flex: 1; min-width: 0; }
+    .mission-map-title {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+    .mission-map-meta {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+    }
+    .mission-medal-pip-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .mission-medal-pip {
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform var(--transition-fast);
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .mission-medal-pip:hover { transform: scale(1.2); }
+    .mission-medal-pip.locked {
+      opacity: 0.22;
+      filter: grayscale(1);
+    }
+    .mission-next-badge {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      line-height: var(--line-height-tight);
+    }
+
+    /* ---------------------------------------------------------
+       38. CHAMPION MISSION SCREENS
+    --------------------------------------------------------- */
+    .champ-rules {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+    .champ-rule-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-base);
+    }
+    .champ-rule-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      width: 30px;
+      text-align: center;
+      padding-top: 2px;
+    }
+
+    /* Timer bar */
+    .champ-timer-container {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      margin-bottom: var(--space-2);
+    }
+    .champ-timer-bar-track {
+      flex: 1;
+      height: 10px;
+      background: var(--color-surface-hi);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .champ-timer-bar-fill {
+      height: 100%;
+      background: var(--color-accent-blue);
+      border-radius: var(--radius-full);
+      transition: width 1s linear, background-color 400ms ease;
+    }
+    .champ-timer-bar-fill.warning { background: var(--color-warning); }
+    .champ-timer-bar-fill.danger  { background: #EF5350; }
+    .champ-timer-text {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-blue);
+      width: 38px;
+      text-align: right;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .champ-timer-text.warning { color: var(--color-warning); }
+    .champ-timer-text.danger  { color: #EF5350; }
+
+    /* Dashboard champion card */
+    .champ-dashboard-locked {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      opacity: 0.50;
+    }
+    .champ-dashboard-unlocked {
+      border: 2px solid var(--color-accent-gold);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      background: linear-gradient(135deg, rgba(255,215,0,0.10), rgba(255,215,0,0.03));
+      animation: champGlow 2.2s ease-in-out infinite alternate;
+    }
+    @keyframes champGlow {
+      from { box-shadow: 0 0 10px rgba(255,215,0,0.15); }
+      to   { box-shadow: 0 0 28px rgba(255,215,0,0.45); }
+    }
+
+    /* ---------------------------------------------------------
+       37. RANK-UP OVERLAY ANIMATION
+    --------------------------------------------------------- */
+    .rankup-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-4);
+      pointer-events: none;
+      background: radial-gradient(ellipse at center,
+        rgba(79,195,247,0.22) 0%, rgba(15,27,45,0.97) 68%);
+      animation: ruOverlayIn 350ms ease both,
+                 ruOverlayOut 500ms ease 2100ms forwards;
+    }
+    @keyframes ruOverlayIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes ruOverlayOut {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+    .rankup-icon-big {
+      font-size: 96px;
+      display: block;
+      line-height: 1;
+      animation: ruPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 150ms both;
+    }
+    .rankup-label {
+      font-size: 48px;
+      font-weight: var(--font-weight-black);
+      color: var(--color-accent-blue);
+      text-shadow: 0 0 30px rgba(79,195,247,0.8), 0 0 60px rgba(79,195,247,0.4);
+      animation: ruPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 300ms both;
+      margin-top: var(--space-2);
+      line-height: 1.1;
+    }
+    .rankup-new-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-gold);
+      text-shadow: var(--shadow-glow-gold);
+      animation: ruPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 450ms both;
+      margin-top: var(--space-1);
+    }
+    .rankup-stars {
+      font-size: 28px;
+      letter-spacing: 10px;
+      animation: ruPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 580ms both;
+      margin-top: var(--space-2);
+    }
+    @keyframes ruPop {
+      0%   { transform: scale(0.3) translateY(30px); opacity: 0; }
+      65%  { transform: scale(1.12) translateY(-6px); opacity: 1; }
+      100% { transform: scale(1)   translateY(0);    opacity: 1; }
     }
   </style>
 </head>
@@ -7975,6 +8310,21 @@
         currentOrder: [],
         dragFromPos:  null,
       },
+
+      /* ── Champion Mission ───────────────────────────────────── */
+      champion: {
+        active:         false,
+        questions:      [],
+        questionIndex:  0,
+        correct:        0,
+        timedOut:       0,
+        ppEarned:       0,
+        timerInterval:  null,
+        timeLeft:       90,
+        rankUp:         null,
+        passed:         false,
+        resultAccuracy: null,
+      },
     };
 
     /* -----------------------------------------------------------
@@ -8526,6 +8876,45 @@
       const goldMissions            = Object.keys(CONTENT.missions)
         .filter(id => p.badges.includes(`${id}-gold`)).length;
 
+      // Champion Mission card state
+      const champUnlocked = rankInfo.rank >= 5;
+      const champComplete = p.badges.includes('champion-complete');
+      let champCardHtml = '';
+      if (champComplete) {
+        champCardHtml = `
+          <div style="border:2px solid var(--color-success);border-radius:var(--radius-md);
+                      padding:var(--space-3);background:linear-gradient(135deg,rgba(102,187,106,0.10),rgba(102,187,106,0.03));
+                      margin-top:var(--space-2);text-align:center">
+            <p style="font-weight:var(--font-weight-bold);color:var(--color-success)">🦸 Champion Hero — Complete!</p>
+            <button class="btn-link mt-1" data-action="view-champion"
+                    style="color:var(--color-accent-gold)">View Certificate</button>
+          </div>`;
+      } else if (champUnlocked) {
+        champCardHtml = `
+          <div class="champ-dashboard-unlocked mt-2">
+            <p style="font-size:var(--font-size-sm);font-weight:var(--font-weight-bold);
+                      color:var(--color-accent-gold);letter-spacing:0.06em;text-transform:uppercase;
+                      text-align:center;margin-bottom:var(--space-1)">
+              ⚡ Champion Mission Unlocked!
+            </p>
+            <button class="btn-primary btn-primary-full" data-action="view-champion">
+              🏆 Begin Champion Mission
+            </button>
+          </div>`;
+      } else {
+        champCardHtml = `
+          <div class="champ-dashboard-locked mt-2">
+            <span style="font-size:28px;flex-shrink:0" aria-hidden="true">🔒</span>
+            <div>
+              <p style="font-weight:var(--font-weight-bold)">Champion Mission</p>
+              <p class="text-secondary" style="font-size:var(--font-size-sm)">
+                Unlock at Rank 5 · Elite Hero
+                ${rankInfo.rank < 5 ? `(you are ${escapeHtml(rankInfo.rankTitle)})` : ''}
+              </p>
+            </div>
+          </div>`;
+      }
+
       const ppNextLabel = rankInfo.nextThreshold !== null
         ? `Next rank: ${rankInfo.nextThreshold} PP`
         : 'Max Rank achieved!';
@@ -8549,7 +8938,7 @@
             class="btn-link"
             data-action="open-parent"
             aria-label="Open parent dashboard"
-            style="font-size: 26px; text-decoration: none; min-height: 40px; min-width: 40px;"
+            style="font-size: 26px; text-decoration: none; min-height: 56px; min-width: 56px;"
           >⚙</button>
         </div>
 
@@ -8611,6 +9000,9 @@
           <button class="btn-link" data-action="view-missions">View Missions</button>
           <button class="btn-link" data-action="view-badges">My Badges</button>
         </div>
+
+        <!-- Champion Mission card -->
+        ${champCardHtml}
 
         <div style="flex: 1"></div>
       `;
@@ -9985,25 +10377,249 @@
 
       // Animate PP count-up after paint
       requestAnimationFrame(() => animateValue('victory-pp-counter', sessionPP, 1400));
+
+      // Rank-up overlay animation (fires on top of victory screen)
+      if (rankUp) triggerRankUpOverlay(rankUp);
     }
 
     function renderBadges() {
-      const app = document.getElementById('app');
+      const data    = loadPlayerData();
+      const p       = data.player;
+      const earned  = new Set(p.badges);
+
+      const allMissions  = Object.entries(CONTENT.missions);
+      const mathMissions = allMissions.filter(([, m]) => m.world === 'math');
+      const elaMissions  = allMissions.filter(([, m]) => m.world === 'ela');
+
+      // Count totals
+      const specialIds = Object.keys(BADGE_DEFS);
+      const totalMissionBadges = allMissions.length * 3;
+      const totalSpecial       = specialIds.length;
+      const totalAll           = totalSpecial + totalMissionBadges;
+      const earnedAll          = p.badges.length;
+
+      // Render a single badge card (for BADGE_DEFS badges)
+      function badgeCardHtml(id) {
+        const def      = BADGE_DEFS[id];
+        const isEarned = earned.has(id);
+        return `
+          <button class="badge-card ${isEarned ? 'earned' : 'locked'}"
+                  data-action="badge-detail"
+                  data-badge-id="${id}"
+                  aria-label="${isEarned ? escapeHtml(def.name) : 'Locked badge'}">
+            <span class="badge-card-emoji" aria-hidden="true">${isEarned ? def.emoji : '🔒'}</span>
+            <span class="badge-card-name">${isEarned ? escapeHtml(def.name) : '???'}</span>
+          </button>
+        `;
+      }
+
+      // Render a section of BADGE_DEFS cards
+      function badgeSectionHtml(title, ids) {
+        const earnedCount = ids.filter(id => earned.has(id)).length;
+        return `
+          <div class="badge-section">
+            <div class="badge-section-header">
+              <span class="badge-section-title">${title}</span>
+              <span class="badge-section-count">${earnedCount}/${ids.length}</span>
+            </div>
+            <div class="badge-grid">
+              ${ids.map(badgeCardHtml).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Render a mission medal row (bronze/silver/gold)
+      function missionMedalRowHtml([mId, m]) {
+        const tiers = [
+          { tier: 'bronze', emoji: '🥉' },
+          { tier: 'silver', emoji: '🥈' },
+          { tier: 'gold',   emoji: '🥇' },
+        ];
+        const medals = tiers.map(({ tier, emoji }) => {
+          const badgeId  = `${mId}-${tier}`;
+          const isEarned = earned.has(badgeId);
+          return `
+            <button class="medal-btn ${isEarned ? '' : 'locked'}"
+                    data-action="badge-detail"
+                    data-badge-id="${badgeId}"
+                    title="${isEarned ? tier.charAt(0).toUpperCase() + tier.slice(1) + ' — EARNED' : 'Locked'}">
+              <span style="font-size:26px;line-height:1;display:block;
+                           ${isEarned ? '' : 'opacity:0.25;filter:grayscale(1)'}">
+                ${emoji}
+              </span>
+            </button>
+          `;
+        }).join('');
+        return `
+          <div class="mission-badge-row card">
+            <span style="font-size:24px;flex-shrink:0">${m.emoji}</span>
+            <span style="flex:1;font-weight:var(--font-weight-bold);font-size:var(--font-size-base);
+                         min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+              ${escapeHtml(m.name)}
+            </span>
+            <div style="display:flex;gap:4px;flex-shrink:0">${medals}</div>
+          </div>
+        `;
+      }
+
+      function missionWorldMedalsHtml(label, missions) {
+        const mEarned = missions.reduce((n, [id]) =>
+          n + ['bronze','silver','gold'].filter(t => earned.has(`${id}-${t}`)).length, 0);
+        const mTotal  = missions.length * 3;
+        return `
+          <div class="badge-section">
+            <div class="badge-section-header">
+              <span class="badge-section-title">${label}</span>
+              <span class="badge-section-count">${mEarned}/${mTotal}</span>
+            </div>
+            ${missions.map(missionMedalRowHtml).join('')}
+          </div>
+        `;
+      }
+
+      const app    = document.getElementById('app');
       const screen = document.createElement('div');
       screen.className = 'screen';
       screen.innerHTML = `
         <div class="top-bar">
           <button class="btn-link" data-action="back">← BACK</button>
           <span class="top-bar-title">MY BADGES</span>
-          <span></span>
+          <span class="badge-section-count">${earnedAll}/${totalAll}</span>
         </div>
-        <p class="text-secondary">[Badge collection — Phase 4]</p>
+
+        ${badgeSectionHtml('🔥 Streak Badges',
+          ['streak-1','streak-3','streak-7','streak-14','streak-30'])}
+        ${badgeSectionHtml('🏆 Milestone Badges',
+          ['milestone-100','milestone-500','milestone-first-gold'])}
+        ${badgeSectionHtml('💥 Comeback Badges',
+          ['comeback-bounce','comeback-finish','comeback-tutor'])}
+        ${badgeSectionHtml('🦸 Special',
+          ['champion-complete'])}
+
+        ${mathMissions.length
+          ? missionWorldMedalsHtml('⚡ Number Kingdom Medals', mathMissions)
+          : ''}
+        ${elaMissions.length
+          ? missionWorldMedalsHtml('📖 Word Realm Medals', elaMissions)
+          : ''}
+
+        <div style="height:var(--space-4)"></div>
       `;
       app.appendChild(screen);
     }
 
     function renderMissionMap() {
-      const app = document.getElementById('app');
+      const data    = loadPlayerData();
+      const earned  = new Set(data.player.badges);
+      const progress = data.progress ?? {};
+
+      // Compute stats for one mission
+      function missionStats(mId) {
+        const mission = CONTENT.missions[mId];
+        let mAns = 0, mCor = 0, mTier3 = 0;
+        for (const q of mission.questions ?? []) {
+          const pr = progress[q.id];
+          if (pr) {
+            mAns += (pr.timesCorrect ?? 0) + (pr.timesIncorrect ?? 0);
+            mCor += pr.timesCorrect ?? 0;
+            if (q.tier === 3 && (pr.timesCorrect ?? 0) > 0) mTier3++;
+          }
+        }
+        const acc = mAns > 0 ? mCor / mAns : null;
+        return { mAns, mCor, mTier3, acc };
+      }
+
+      // Progress label toward next unearned badge
+      function nextBadgeLabel(mId, stats) {
+        const { mAns, mCor, mTier3, acc } = stats;
+        const mAcc = acc ?? 0;
+        const bId = `${mId}-bronze`, sId = `${mId}-silver`, gId = `${mId}-gold`;
+        if (!earned.has(bId)) {
+          return `${mAns}/10 Qs for 🥉 Bronze`;
+        } else if (!earned.has(sId)) {
+          const accPct = Math.round(mAcc * 100);
+          return `${mAns}/20 Qs · ${accPct}%/75% acc for 🥈 Silver`;
+        } else if (!earned.has(gId)) {
+          return `${mAns}/30 Qs · ${Math.round(mAcc*100)}%/90% acc · ${mTier3}/5 T3 for 🥇 Gold`;
+        }
+        return '🏆 All medals earned!';
+      }
+
+      // Progress % toward next badge (for bar)
+      function nextBadgePct(mId, stats) {
+        const { mAns, mCor, mTier3, acc } = stats;
+        const mAcc = acc ?? 0;
+        if (!earned.has(`${mId}-bronze`)) return Math.min(100, Math.round((mAns / 10) * 100));
+        if (!earned.has(`${mId}-silver`)) {
+          const ansPct = Math.min(100, Math.round((mAns / 20) * 100));
+          const accPct = Math.min(100, Math.round((mAcc / 0.75) * 100));
+          return Math.min(ansPct, accPct);
+        }
+        if (!earned.has(`${mId}-gold`)) {
+          const ansPct = Math.min(100, Math.round((mAns / 30) * 100));
+          const accPct = Math.min(100, Math.round((mAcc / 0.90) * 100));
+          const t3Pct  = Math.min(100, Math.round((mTier3 / 5) * 100));
+          return Math.min(ansPct, accPct, t3Pct);
+        }
+        return 100;
+      }
+
+      function missionCardHtml(mId) {
+        const m      = CONTENT.missions[mId];
+        const stats  = missionStats(mId);
+        const { acc, mAns } = stats;
+        const health = skillHealth(acc);
+        const accText = acc !== null ? `${Math.round(acc * 100)}% accuracy` : 'No data yet';
+        const pct     = nextBadgePct(mId, stats);
+        const label   = nextBadgeLabel(mId, stats);
+
+        const medalPips = ['bronze','silver','gold'].map(tier => {
+          const badgeId  = `${mId}-${tier}`;
+          const isEarned = earned.has(badgeId);
+          const pip      = { bronze: '🥉', silver: '🥈', gold: '🥇' }[tier];
+          return `
+            <button class="mission-medal-pip ${isEarned ? '' : 'locked'}"
+                    data-action="badge-detail"
+                    data-badge-id="${badgeId}"
+                    title="${isEarned ? tier + ' — EARNED' : 'Locked'}">
+              ${pip}
+            </button>
+          `;
+        }).join('');
+
+        return `
+          <div class="mission-map-card card">
+            <div class="mission-map-emoji-cell">${m.emoji}</div>
+            <div class="mission-map-body">
+              <div class="mission-map-title">${escapeHtml(m.name)}</div>
+              <div class="mission-map-meta">
+                ${health.indicator} ${accText} · ${mAns} answered
+              </div>
+              <div class="mission-medal-pip-row">${medalPips}</div>
+              <div class="badge-progress-bar">
+                <div class="badge-progress-fill" style="width:${pct}%"></div>
+              </div>
+              <div class="mission-next-badge mt-1">${label}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      const allMissions  = Object.entries(CONTENT.missions);
+      const mathMissions = allMissions.filter(([, m]) => m.world === 'math');
+      const elaMissions  = allMissions.filter(([, m]) => m.world === 'ela');
+
+      const mathHtml = mathMissions.length
+        ? `<p class="mission-world-label">${THEME.worlds.math.label}</p>
+           ${mathMissions.map(([id]) => missionCardHtml(id)).join('')}`
+        : '';
+      const elaHtml = elaMissions.length
+        ? `<p class="mission-world-label">${THEME.worlds.ela.label}</p>
+           ${elaMissions.map(([id]) => missionCardHtml(id)).join('')}`
+        : '';
+
+      const app    = document.getElementById('app');
       const screen = document.createElement('div');
       screen.className = 'screen';
       screen.innerHTML = `
@@ -10012,7 +10628,14 @@
           <span class="top-bar-title">MISSION MAP</span>
           <span></span>
         </div>
-        <p class="text-secondary">[Mission map — Phase 4]</p>
+
+        ${mathHtml}
+        ${elaHtml}
+        ${!mathMissions.length && !elaHtml
+          ? '<p class="text-secondary text-center mt-4">No missions available yet.</p>'
+          : ''}
+
+        <div style="height:var(--space-4)"></div>
       `;
       app.appendChild(screen);
     }
@@ -10370,6 +10993,15 @@
       if (totalAnswered >= 500) award('milestone-500');
 
       // ── Mission badges (bronze / silver / gold) ────────────────
+      // Mission badge IDs are not in BADGE_DEFS, so we use awardMission()
+      // which builds the def inline and bypasses the BADGE_DEFS gate.
+      function awardMission(id, def) {
+        if (!alreadyEarned.has(id)) {
+          newBadges.push({ id, ...def });
+          alreadyEarned.add(id);
+        }
+      }
+
       let goldEarnedThisCheck = false;
       for (const missionId of Object.keys(CONTENT.missions)) {
         const mission  = CONTENT.missions[missionId];
@@ -10385,12 +11017,26 @@
         }
         const mAcc = mAns > 0 ? mCor / mAns : 0;
 
-        if (mAns >= 10)                           award(`${missionId}-bronze`);
-        if (mAns >= 20 && mAcc >= 0.75)           award(`${missionId}-silver`);
+        if (mAns >= 10)
+          awardMission(`${missionId}-bronze`, {
+            name:  `${mission.name}: Bronze`,
+            emoji: '🥉',
+            desc:  'Answered 10+ questions in this mission',
+          });
+        if (mAns >= 20 && mAcc >= 0.75)
+          awardMission(`${missionId}-silver`, {
+            name:  `${mission.name}: Silver`,
+            emoji: '🥈',
+            desc:  'Answered 20+ questions with 75%+ accuracy',
+          });
         if (mAns >= 30 && mAcc >= 0.90 && mTier3 >= 5) {
           const goldId = `${missionId}-gold`;
           if (!alreadyEarned.has(goldId)) goldEarnedThisCheck = true;
-          award(goldId);
+          awardMission(goldId, {
+            name:  `${mission.name}: Gold`,
+            emoji: '🥇',
+            desc:  'Answered 30+ questions with 90%+ accuracy including 5 Tier 3 correct',
+          });
         }
       }
 
@@ -10677,6 +11323,818 @@
        All data-action clicks bubble here. Screens never wire
        their own navigation — they use data-action attributes.
     ----------------------------------------------------------- */
+    /* -----------------------------------------------------------
+       CHAMPION MISSION — Phase 7
+       30 mixed Tier 2-3 questions, 90s timer, 75%+ to pass.
+    ----------------------------------------------------------- */
+
+    const CHAMPION_Q_COUNT = 30;
+    const CHAMPION_TIME    = 90;   // seconds per question
+    const CHAMPION_PASS    = 0.75; // accuracy threshold
+
+    function selectChampionQuestions() {
+      const allMissions = Object.values(CONTENT.missions);
+      const mathPool = [];
+      const elaPool  = [];
+      for (const m of allMissions) {
+        for (const q of m.questions ?? []) {
+          if (q.tier >= 2) {
+            (m.world === 'math' ? mathPool : elaPool).push(q);
+          }
+        }
+      }
+      const math15 = shuffle(mathPool).slice(0, 15);
+      const ela15  = shuffle(elaPool).slice(0, 15);
+      const combined = [...math15, ...ela15];
+      // Fill any gap if one pool was short
+      if (combined.length < CHAMPION_Q_COUNT) {
+        const used  = new Set(combined.map(q => q.id));
+        const spare = shuffle([...mathPool, ...elaPool]).filter(q => !used.has(q.id));
+        combined.push(...spare.slice(0, CHAMPION_Q_COUNT - combined.length));
+      }
+      return shuffle(combined).slice(0, CHAMPION_Q_COUNT);
+    }
+
+    function startChampion() {
+      const qs = selectChampionQuestions();
+      const ch = STATE.champion;
+      ch.active         = true;
+      ch.questions      = qs;
+      ch.questionIndex  = 0;
+      ch.correct        = 0;
+      ch.timedOut       = 0;
+      ch.ppEarned       = 0;
+      ch.rankUp         = null;
+      ch.passed         = false;
+      ch.resultAccuracy = null;
+      ch.timerInterval  = null;
+      ch.timeLeft       = CHAMPION_TIME;
+      showScreen('screen-champion-q');
+    }
+
+    function championStopTimer() {
+      if (STATE.champion.timerInterval) {
+        clearInterval(STATE.champion.timerInterval);
+        STATE.champion.timerInterval = null;
+      }
+    }
+
+    function updateChampionTimerDOM(t) {
+      const bar  = document.getElementById('champ-timer-bar');
+      const text = document.getElementById('champ-timer-text');
+      if (!bar || !text) return;
+      bar.style.width = Math.max(0, Math.round((t / CHAMPION_TIME) * 100)) + '%';
+      const cls = t <= 10 ? ' danger' : t <= 30 ? ' warning' : '';
+      bar.className  = 'champ-timer-bar-fill' + cls;
+      text.className = 'champ-timer-text' + cls;
+      const mins = Math.floor(t / 60);
+      const secs = t % 60;
+      text.textContent = `${mins}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function championStartTimer() {
+      championStopTimer();
+      STATE.champion.timeLeft = CHAMPION_TIME;
+      updateChampionTimerDOM(CHAMPION_TIME);
+      STATE.champion.timerInterval = setInterval(() => {
+        STATE.champion.timeLeft--;
+        updateChampionTimerDOM(STATE.champion.timeLeft);
+        if (STATE.champion.timeLeft <= 0) {
+          championStopTimer();
+          championTimeout();
+        }
+      }, 1000);
+    }
+
+    function championTimeout() {
+      if (STATE.question.answered) return;
+      STATE.question.answered = true;
+      STATE.champion.timedOut++;
+      const area = document.getElementById('feedback-area');
+      if (area) {
+        area.innerHTML = `
+          <div class="feedback-card incorrect animate-slide-up" style="opacity:0.85">
+            <p style="color:var(--color-text-secondary);font-size:var(--font-size-base)">
+              ⏱ Time's up — moving on!
+            </p>
+          </div>`;
+      }
+      const checkBtn = document.getElementById('champ-check-btn');
+      if (checkBtn) checkBtn.style.display = 'none';
+      setTimeout(() => advanceChampionQuestion(), 1400);
+    }
+
+    function handleChampionSelectAnswer(indexStr) {
+      if (STATE.question.answered) return;
+      const index = parseInt(indexStr, 10);
+      STATE.question.selectedIndex = index;
+      document.querySelectorAll('.answer-tile, .sentence-tile').forEach((tile, i) => {
+        tile.classList.toggle('selected', i === index);
+      });
+      const checkBtn = document.getElementById('champ-check-btn');
+      if (checkBtn) checkBtn.disabled = false;
+    }
+
+    function handleChampionCheckAnswer() {
+      if (STATE.question.answered) return;
+      championStopTimer();
+
+      const q = STATE.question.obj;
+      let isCorrect  = false;
+      let detailHtml = '';
+
+      switch (q.type) {
+        case 'multiple_choice': {
+          if (STATE.question.selectedIndex === null) return;
+          const sel = STATE.question.selectedIndex;
+          isCorrect  = sel === q.correct;
+          document.querySelectorAll('.answer-tile').forEach((tile, i) => {
+            tile.disabled = true;
+            if (i === q.correct)         tile.classList.add('correct');
+            if (i === sel && !isCorrect) tile.classList.add('incorrect');
+          });
+          break;
+        }
+        case 'numeric_input': {
+          const inputEl = document.getElementById('numeric-input');
+          if (!inputEl || inputEl.value.trim() === '') return;
+          isCorrect        = inputEl.value.trim() === String(q.correct);
+          inputEl.disabled = true;
+          inputEl.style.borderColor = isCorrect
+            ? 'var(--color-success)' : 'var(--color-warning)';
+          if (!isCorrect) {
+            detailHtml = `<p style="color:var(--color-text-secondary);margin-top:var(--space-1)">
+              Correct answer: <strong style="color:var(--color-accent-gold)">${escapeHtml(String(q.correct))}</strong>
+            </p>`;
+          }
+          break;
+        }
+        case 'drag_order': {
+          isCorrect = arraysEqual(STATE.dragOrder.currentOrder, q.correct);
+          document.querySelectorAll('.drag-tile').forEach((tile, pos) => {
+            tile.setAttribute('draggable', 'false');
+            tile.style.cursor = 'default';
+            tile.classList.add(
+              STATE.dragOrder.currentOrder[pos] === q.correct[pos] ? 'correct' : 'incorrect'
+            );
+          });
+          if (!isCorrect) {
+            const orderedItems = q.correct.map((idx, n) =>
+              `<li style="padding:2px 0">${n + 1}. ${escapeHtml(q.items[idx])}</li>`
+            ).join('');
+            detailHtml = `<p style="color:var(--color-text-secondary);font-size:var(--font-size-sm);margin-top:var(--space-1);font-weight:var(--font-weight-semi)">CORRECT ORDER:</p><ol style="list-style:none;padding:0;margin-top:4px;font-size:var(--font-size-base);line-height:1.7">${orderedItems}</ol>`;
+          }
+          break;
+        }
+        case 'sentence_select': {
+          if (STATE.question.selectedIndex === null) return;
+          const sel = STATE.question.selectedIndex;
+          isCorrect  = sel === q.correct;
+          document.querySelectorAll('.sentence-tile').forEach(t => { t.disabled = true; });
+          const selTile = document.querySelectorAll('.sentence-tile')[sel];
+          const corTile = document.querySelectorAll('.sentence-tile')[q.correct];
+          if (selTile) { selTile.classList.remove('selected'); selTile.classList.add(isCorrect ? 'correct' : 'incorrect'); }
+          if (!isCorrect && corTile) corTile.classList.add('correct');
+          break;
+        }
+        default: return;
+      }
+
+      STATE.question.answered = true;
+      const checkBtn = document.getElementById('champ-check-btn');
+      if (checkBtn) { checkBtn.disabled = true; checkBtn.style.display = 'none'; }
+
+      // Award PP for correct answers
+      let ppEarned = 0;
+      if (isCorrect) {
+        ppEarned = q.tier === 3 ? PP_VALUES.challenge_tier3 : PP_VALUES.challenge_tier2;
+        STATE.champion.correct++;
+        STATE.champion.ppEarned += ppEarned;
+        const d = loadPlayerData();
+        d.player.totalPP += ppEarned;
+        savePlayerData(d);
+        const ppDisplay = document.getElementById('pp-display');
+        if (ppDisplay) ppDisplay.textContent = '\u26a1 ' + d.player.totalPP + ' PP';
+      }
+
+      // Record in spaced-repetition progress
+      recordQuestionResult(q.id, isCorrect);
+
+      renderChampionFeedback(isCorrect, ppEarned, q.explanation, detailHtml);
+      setTimeout(() => advanceChampionQuestion(), isCorrect ? 1800 : 2400);
+    }
+
+    function renderChampionFeedback(isCorrect, ppEarned, explanation, detailHtml) {
+      const area = document.getElementById('feedback-area');
+      if (!area) return;
+      const ppLine = ppEarned > 0
+        ? `<p style="color:var(--color-accent-gold);font-size:var(--font-size-md);font-weight:var(--font-weight-black);margin-top:var(--space-1)">+${ppEarned} Power Points! ⚡</p>`
+        : '';
+      if (isCorrect) {
+        area.innerHTML = `
+          <div class="feedback-card correct animate-slide-up">
+            <p style="color:var(--color-success);font-size:var(--font-size-md);font-weight:var(--font-weight-bold)">✅ That's right!</p>
+            ${ppLine}
+            <p style="color:var(--color-text-secondary);font-size:var(--font-size-base);margin-top:var(--space-1);line-height:var(--line-height-base)">${escapeHtml(explanation)}</p>
+          </div>`;
+      } else {
+        area.innerHTML = `
+          <div class="feedback-card incorrect animate-slide-up">
+            <p style="color:var(--color-warning);font-size:var(--font-size-md);font-weight:var(--font-weight-bold)">Not quite — keep going!</p>
+            ${detailHtml || ''}
+            <p style="color:var(--color-text-primary);font-size:var(--font-size-base);margin-top:var(--space-1);line-height:var(--line-height-base)">${escapeHtml(explanation)}</p>
+          </div>`;
+      }
+    }
+
+    function advanceChampionQuestion() {
+      championStopTimer();
+      STATE.champion.questionIndex++;
+      if (STATE.champion.questionIndex >= STATE.champion.questions.length) {
+        endChampion();
+        return;
+      }
+      const nextQ = STATE.champion.questions[STATE.champion.questionIndex];
+      STATE.question.obj           = nextQ;
+      STATE.question.selectedIndex = null;
+      STATE.question.answered      = false;
+      showScreen('screen-champion-q');
+    }
+
+    function endChampion() {
+      const total    = STATE.champion.questions.length;
+      const correct  = STATE.champion.correct;
+      const accuracy = total > 0 ? correct / total : 0;
+      const passed   = accuracy >= CHAMPION_PASS;
+
+      STATE.champion.passed        = passed;
+      STATE.champion.resultAccuracy = accuracy;
+      STATE.champion.active        = false;
+
+      if (passed) {
+        const data = loadPlayerData();
+
+        // Award champion-complete badge if not already held
+        if (!data.player.badges.includes('champion-complete')) {
+          data.player.badges.push('champion-complete');
+          data.player.totalPP    += PP_VALUES.badge_earned;
+          STATE.champion.ppEarned += PP_VALUES.badge_earned;
+        }
+
+        // Guarantee Rank 6 by filling PP if needed
+        const rank6PP = THEME.ranks[6].threshold; // 3500
+        if (data.player.totalPP < rank6PP) {
+          const boost = rank6PP - data.player.totalPP;
+          data.player.totalPP    += boost;
+          STATE.champion.ppEarned += boost;
+        }
+
+        // Detect and record rank advancement
+        const oldRank = data.player.rank;
+        const { rank: newRank } = getRankInfo(data.player.totalPP);
+        if (newRank > oldRank) {
+          data.player.rank        = newRank;
+          data.player.totalPP    += PP_VALUES.rank_up_bonus;
+          STATE.champion.ppEarned += PP_VALUES.rank_up_bonus;
+          STATE.champion.rankUp   = { from: oldRank, to: newRank };
+        }
+
+        savePlayerData(data);
+      }
+
+      showScreen('screen-champion-result');
+    }
+
+    function initChampionNumericInput() {
+      const input    = document.getElementById('numeric-input');
+      const checkBtn = document.getElementById('champ-check-btn');
+      if (!input) return;
+      input.addEventListener('input', () => {
+        if (checkBtn) checkBtn.disabled = input.value.trim() === '';
+      });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && input.value.trim() !== '') handleChampionCheckAnswer();
+      });
+      input.focus();
+    }
+
+    function openChampionCertificate() {
+      const data    = loadPlayerData();
+      const p       = data.player;
+      const correct = STATE.champion.correct ?? 0;
+      const total   = STATE.champion.questions?.length ?? CHAMPION_Q_COUNT;
+      const hasScore = STATE.champion.resultAccuracy != null;
+      const accPct  = hasScore ? Math.round(STATE.champion.resultAccuracy * 100) : null;
+      const date    = new Date().toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric',
+      });
+      const scoreSection = hasScore
+        ? `<p class="cert-score">${accPct}%</p>
+           <p class="cert-score-label">${correct} of ${total} correct · Champion Mission</p>`
+        : '';
+
+      const certHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hero Academy — Champion Certificate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #0F1B2D;
+      color: #F5F5F5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      gap: 24px;
+    }
+    .cert {
+      max-width: 680px;
+      width: 100%;
+      border: 4px solid #FFD700;
+      border-radius: 28px;
+      padding: 56px 48px;
+      text-align: center;
+      background: linear-gradient(135deg, #1A2E45 0%, #0F1B2D 100%);
+      box-shadow: 0 0 60px rgba(255,215,0,0.25), inset 0 0 40px rgba(255,215,0,0.04);
+      position: relative;
+    }
+    .cert::before { content:'⭐'; position:absolute; font-size:26px; top:18px; left:22px; }
+    .cert::after  { content:'⭐'; position:absolute; font-size:26px; top:18px; right:22px; }
+    .cert-icon   { font-size:80px; display:block; margin-bottom:16px; line-height:1; }
+    .cert-title  { font-size:13px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#FFD700; margin-bottom:10px; }
+    .cert-name   { font-size:44px; font-weight:800; color:#FFD700; text-shadow:0 0 20px rgba(255,215,0,0.5); margin:12px 0; line-height:1.1; }
+    .cert-rank   { font-size:22px; font-weight:700; color:#4FC3F7; margin:8px 0 24px; }
+    .cert-body   { font-size:18px; color:#B0BEC5; line-height:1.7; margin-bottom:24px; }
+    .cert-score  { font-size:52px; font-weight:800; color:#66BB6A; margin:16px 0 6px; text-shadow:0 0 20px rgba(102,187,106,0.4); }
+    .cert-score-label { font-size:13px; color:#B0BEC5; letter-spacing:0.10em; text-transform:uppercase; }
+    .cert-date   { font-size:16px; color:#B0BEC5; margin-top:28px; font-style:italic; }
+    .cert-footer { font-size:20px; font-weight:800; color:#FFD700; margin-top:16px; letter-spacing:0.05em; }
+    .print-btn {
+      background: #FFD700; color: #0F1B2D; border: none;
+      border-radius: 999px; padding: 14px 40px;
+      font-size: 18px; font-weight: 800; font-family: 'Nunito', sans-serif;
+      cursor: pointer; max-width: 680px; width: 100%;
+    }
+    @media print {
+      body { background: white; color: #111; }
+      .cert { border-color: #888; background: white; box-shadow: none; }
+      .cert-name   { color: #B8860B; text-shadow: none; }
+      .cert-rank   { color: #1565C0; }
+      .cert-score  { color: #2E7D32; text-shadow: none; }
+      .cert-title, .cert-footer { color: #B8860B; }
+      .cert-body, .cert-date, .cert-score-label { color: #444; }
+      .print-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cert">
+    <span class="cert-icon" aria-hidden="true">🏆</span>
+    <p class="cert-title">Hero Academy — Certificate of Achievement</p>
+    <p class="cert-name">${escapeHtml(p.name)}</p>
+    <p class="cert-rank">🦸 Legendary Hero</p>
+    <p class="cert-body">
+      has successfully completed the Champion Mission,<br>
+      demonstrating mastery across Math and ELA challenges.
+    </p>
+    ${scoreSection}
+    <p class="cert-date">Achieved on ${escapeHtml(date)}</p>
+    <p class="cert-footer">⚡ HERO ACADEMY ⚡</p>
+  </div>
+  <button class="print-btn" onclick="window.print()">🖨 Print Certificate</button>
+</body>
+</html>`;
+
+      const win = window.open('', '_blank');
+      if (win) {
+        win.document.write(certHtml);
+        win.document.close();
+      } else {
+        showToast('Pop-up blocked — allow pop-ups and try again.');
+      }
+    }
+
+    /* ---------- CHAMPION SCREEN RENDERERS ---------- */
+
+    function renderChampion() {
+      const data         = loadPlayerData();
+      const p            = data.player;
+      const champComplete = p.badges.includes('champion-complete');
+
+      const app    = document.getElementById('app');
+      const screen = document.createElement('div');
+      screen.className = 'screen';
+
+      if (champComplete) {
+        screen.innerHTML = `
+          <div class="top-bar">
+            <button class="btn-link" data-action="back">← BACK</button>
+            <span class="top-bar-title">CHAMPION MISSION</span>
+            <span></span>
+          </div>
+          <div class="text-center mt-4">
+            <span style="font-size:80px;display:block;line-height:1" aria-hidden="true">🏆</span>
+            <h1 class="text-gold mt-2">Champion Complete!</h1>
+            <p class="text-secondary mt-2">You've proven yourself a Legendary Hero.</p>
+            <p class="text-success mt-1" style="font-weight:var(--font-weight-bold)">🦸 Badge Earned: Champion Hero</p>
+            <button class="btn-primary mt-4" data-action="champion-certificate" style="width:100%">
+              🖨 Print Champion Certificate
+            </button>
+            <button class="btn-secondary mt-2" style="width:100%" data-action="back">
+              Back to Dashboard
+            </button>
+          </div>
+        `;
+      } else {
+        screen.innerHTML = `
+          <div class="top-bar">
+            <button class="btn-link" data-action="back">← BACK</button>
+            <span class="top-bar-title">CHAMPION MISSION</span>
+            <span></span>
+          </div>
+
+          <div class="card mt-3">
+            <span style="font-size:64px;display:block;text-align:center;margin-bottom:var(--space-2);line-height:1" aria-hidden="true">🏆</span>
+            <h2 class="text-gold text-center">The Champion Mission</h2>
+            <p style="color:var(--color-text-secondary);text-align:center;margin-top:var(--space-1)">
+              The ultimate test of your hero training!
+            </p>
+            <div class="champ-rules mt-3">
+              <div class="champ-rule-row">
+                <span class="champ-rule-icon">📋</span>
+                <span><strong>30 questions</strong> — mixed Math &amp; ELA</span>
+              </div>
+              <div class="champ-rule-row">
+                <span class="champ-rule-icon">📊</span>
+                <span><strong>Tier 2–3 only</strong> — no easy questions!</span>
+              </div>
+              <div class="champ-rule-row">
+                <span class="champ-rule-icon">⏱</span>
+                <span><strong>90 seconds</strong> per question (timer shown, no penalty)</span>
+              </div>
+              <div class="champ-rule-row">
+                <span class="champ-rule-icon">🎯</span>
+                <span>Score <strong>75%+</strong> to earn Rank 6 and the Champion Hero badge</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-primary btn-primary-full mt-4" data-action="start-champion">
+            ⚡ BEGIN CHAMPION MISSION
+          </button>
+          <button class="btn-link mt-2" data-action="back"
+                  style="text-align:center;width:100%;display:block">
+            Not ready yet — go back
+          </button>
+        `;
+      }
+      app.appendChild(screen);
+    }
+
+    function renderChampionQ() {
+      const ch   = STATE.champion;
+      const q    = ch.questions[ch.questionIndex];
+      const data = loadPlayerData();
+      const qNum = ch.questionIndex + 1;
+      const pct  = Math.round(((qNum - 1) / ch.questions.length) * 100);
+
+      STATE.question.obj           = q;
+      STATE.question.selectedIndex = null;
+      STATE.question.answered      = false;
+
+      // Passage block
+      let passageHtml = '';
+      if (q.passage) {
+        const paragraphs = q.passage.text.split('\n\n').map(para =>
+          `<p class="passage-text">${escapeHtml(para)}</p>`
+        ).join('<p style="margin-top:var(--space-2)">');
+        passageHtml = `
+          <div class="passage-box mb-3">
+            <p class="passage-title">${escapeHtml(q.passage.title)}</p>
+            ${paragraphs}
+          </div>`;
+      }
+
+      // Question text
+      const lines = q.question.split('\n');
+      const questionBodyHtml = lines.map((line, i) => {
+        if (i === 0) return `<p style="font-size:var(--font-size-base);font-weight:var(--font-weight-semi);line-height:var(--line-height-base)">${escapeHtml(line)}</p>`;
+        return `<p style="font-size:var(--font-size-lg);letter-spacing:6px;text-align:center;line-height:2.2;color:var(--color-accent-gold);margin-top:var(--space-1)">${escapeHtml(line)}</p>`;
+      }).join('');
+
+      // Input area — champion-specific action names
+      let inputAreaHtml = '';
+      let checkDisabled = true;
+
+      if (q.type === 'multiple_choice') {
+        inputAreaHtml = `
+          <div class="answer-grid" id="answer-grid">
+            ${q.options.map((opt, i) => `
+              <button class="answer-tile" data-action="champion-select"
+                      data-index="${i}" id="tile-${i}">${escapeHtml(opt)}</button>
+            `).join('')}
+          </div>`;
+      } else if (q.type === 'numeric_input') {
+        inputAreaHtml = `
+          <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
+            <input type="number" class="text-input num-input" id="numeric-input"
+                   min="0" autocomplete="off" placeholder="?"
+                   style="min-height:72px;font-size:var(--font-size-xl);width:140px;"
+                   aria-label="Your answer">
+            <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary)">
+              Type your answer, then press CHECK ANSWER
+            </p>
+          </div>`;
+      } else if (q.type === 'drag_order') {
+        checkDisabled = false;
+        const initialItems = q.items.map((item, pos) => `
+          <div class="drag-tile" draggable="true" data-pos="${pos}" id="drag-tile-${pos}">
+            <span class="drag-handle" aria-hidden="true">☰</span>
+            <span>${escapeHtml(item)}</span>
+          </div>`).join('');
+        inputAreaHtml = `
+          <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-1)">
+            Drag the tiles to reorder them, then press CHECK ORDER.
+          </p>
+          <div class="drag-list" id="drag-list">${initialItems}</div>`;
+      } else if (q.type === 'sentence_select') {
+        inputAreaHtml = `
+          <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary);margin-bottom:var(--space-2)">
+            Tap the sentence that best answers the question.
+          </p>
+          <div class="sentence-list" id="sentence-list">
+            ${q.sentences.map((sent, i) => `
+              <button class="sentence-tile" data-action="champion-select"
+                      data-index="${i}" id="sentence-${i}">${escapeHtml(sent)}</button>
+            `).join('')}
+          </div>`;
+      }
+
+      const checkLabel = q.type === 'drag_order' ? 'CHECK ORDER' : 'CHECK ANSWER';
+
+      const app    = document.getElementById('app');
+      const screen = document.createElement('div');
+      screen.className = 'screen';
+      screen.innerHTML = `
+        <div class="top-bar">
+          <span style="font-size:var(--font-size-sm);font-weight:var(--font-weight-bold);color:var(--color-accent-gold)">
+            🏆 CHAMPION
+          </span>
+          <span class="pp-counter" id="pp-display">⚡ ${data.player.totalPP} PP</span>
+        </div>
+
+        <div class="progress-bar-track progress-bar-thin" style="margin-bottom:4px">
+          <div class="progress-bar-fill" style="width:${pct}%"></div>
+        </div>
+        <p style="font-size:var(--font-size-sm);color:var(--color-text-secondary);text-align:right;margin-bottom:var(--space-1)">
+          Question ${qNum} of ${ch.questions.length} · <span class="text-gold">Tier ${q.tier}</span>
+        </p>
+
+        <div class="champ-timer-container">
+          <div class="champ-timer-bar-track">
+            <div class="champ-timer-bar-fill" id="champ-timer-bar" style="width:100%"></div>
+          </div>
+          <span class="champ-timer-text" id="champ-timer-text">1:30</span>
+        </div>
+
+        ${passageHtml}
+
+        <div class="card mb-3">${questionBodyHtml}</div>
+
+        ${inputAreaHtml}
+
+        <button class="btn-primary btn-primary-full mt-3"
+                data-action="champion-check"
+                id="champ-check-btn"
+                ${checkDisabled ? 'disabled' : ''}>
+          ${checkLabel}
+        </button>
+
+        <div id="feedback-area"></div>
+
+        <div style="flex:1;min-height:var(--space-4)"></div>
+      `;
+
+      app.appendChild(screen);
+
+      if (q.type === 'numeric_input')  initChampionNumericInput();
+      else if (q.type === 'drag_order') initDragOrder(q);
+
+      championStartTimer();
+    }
+
+    function renderChampionResult() {
+      const data     = loadPlayerData();
+      const p        = data.player;
+      const ch       = STATE.champion;
+      const passed   = ch.passed;
+      const correct  = ch.correct;
+      const total    = ch.questions?.length ?? CHAMPION_Q_COUNT;
+      const accPct   = Math.round((ch.resultAccuracy ?? 0) * 100);
+      const rankInfo = getRankInfo(p.totalPP);
+      const rankUp   = ch.rankUp;
+
+      const app    = document.getElementById('app');
+      const screen = document.createElement('div');
+      screen.className = 'screen';
+
+      if (passed) {
+        screen.innerHTML = `
+          <span class="victory-trophy" aria-hidden="true">🏆</span>
+          <h1 class="text-gold text-center animate-slide-up mt-2">
+            CHAMPION COMPLETE!
+          </h1>
+          <p class="text-secondary text-center mt-1">
+            You've proven yourself a true Legendary Hero, ${escapeHtml(p.name)}!
+          </p>
+
+          <div class="card mt-4 text-center">
+            <p class="section-header">YOUR SCORE</p>
+            <p class="victory-pp-display mt-1" style="color:var(--color-success);font-size:52px">
+              ${accPct}%
+            </p>
+            <p class="text-secondary mt-1">${correct} of ${total} correct · Champion Mission</p>
+          </div>
+
+          ${rankUp ? `
+            <div class="rank-up-banner mt-3">
+              <p style="font-size:60px;line-height:1;margin-bottom:var(--space-1)" aria-hidden="true">🎉</p>
+              <h2 class="text-blue">RANK UP!</h2>
+              <p style="font-size:var(--font-size-md);margin-top:var(--space-1)">
+                You are now a <strong class="text-gold">${escapeHtml(THEME.ranks[rankUp.to]?.title ?? 'Legendary Hero')}</strong>!
+              </p>
+            </div>` : ''}
+
+          <div class="badge-unlock-panel mt-3">
+            <p style="font-size:64px;line-height:1;margin-bottom:var(--space-1)" aria-hidden="true">🦸</p>
+            <h2 class="text-gold">Champion Hero</h2>
+            <p class="text-secondary mt-1">Completed the Champion Mission — a true legend!</p>
+          </div>
+
+          <div class="progress-bar-track mt-3">
+            <div class="progress-bar-fill" style="width:${rankInfo.progressPct}%"></div>
+          </div>
+          <div class="pp-bar-labels">
+            <span class="text-secondary">${p.totalPP} PP — ${escapeHtml(rankInfo.rankTitle)}</span>
+            ${rankInfo.nextThreshold
+              ? `<span class="text-secondary">Next: ${rankInfo.nextThreshold} PP</span>`
+              : `<span class="text-gold" style="font-weight:var(--font-weight-bold)">MAX RANK 🏆</span>`}
+          </div>
+
+          <button class="btn-primary btn-primary-full mt-4" data-action="champion-certificate">
+            🖨 Print Champion Certificate
+          </button>
+          <button class="btn-secondary mt-2" style="width:100%" data-action="back">
+            ⚡ Back to Dashboard
+          </button>
+
+          <div style="flex:1;min-height:var(--space-4)"></div>
+        `;
+
+        if (rankUp) triggerRankUpOverlay(rankUp);
+
+      } else {
+        const encouragement = accPct >= 60
+          ? "So close! You showed real strength — try again and you\'ll get it!"
+          : 'Keep training your hero skills and come back when you\'re ready!';
+
+        screen.innerHTML = `
+          <div class="text-center mt-4">
+            <span style="font-size:80px;display:block;line-height:1" aria-hidden="true">💪</span>
+            <h1 class="mt-2">Not Quite Yet...</h1>
+            <p class="text-secondary mt-1">
+              You scored <strong class="text-warning">${accPct}%</strong>
+              (${correct}/${total}). You need 75% to pass.
+            </p>
+            <p style="color:var(--color-text-secondary);margin-top:var(--space-2);line-height:var(--line-height-base)">
+              ${escapeHtml(encouragement)}
+            </p>
+          </div>
+
+          <div class="card mt-4">
+            <p class="section-header">YOUR SCORE</p>
+            <div class="progress-bar-track mt-2">
+              <div class="progress-bar-fill"
+                   style="width:${accPct}%;background:var(--color-warning)"></div>
+            </div>
+            <div class="pp-bar-labels">
+              <span class="text-secondary">${accPct}% correct</span>
+              <span class="text-secondary">Need: 75%</span>
+            </div>
+          </div>
+
+          <button class="btn-primary btn-primary-full mt-4" data-action="champion-retry">
+            🔄 Try Again
+          </button>
+          <button class="btn-secondary mt-2" style="width:100%" data-action="back">
+            Back to Dashboard
+          </button>
+
+          <div style="flex:1;min-height:var(--space-4)"></div>
+        `;
+      }
+
+      app.appendChild(screen);
+    }
+
+    /* -----------------------------------------------------------
+       BADGE / MISSION MAP HELPERS
+    ----------------------------------------------------------- */
+
+    /** Build a badge def object for a mission badge ID like "m1-1-bronze". */
+    function getMissionBadgeDef(badgeId) {
+      for (const tier of ['bronze', 'silver', 'gold']) {
+        if (!badgeId.endsWith('-' + tier)) continue;
+        const mId = badgeId.slice(0, -(tier.length + 1));
+        const m   = CONTENT.missions[mId];
+        if (!m) return null;
+        const emojis = { bronze: '🥉', silver: '🥈', gold: '🥇' };
+        const reqs   = {
+          bronze: 'Answer 10+ questions in this mission',
+          silver: 'Answer 20+ questions with 75%+ accuracy',
+          gold:   'Answer 30+ questions with 90%+ accuracy and 5 Tier 3 correct',
+        };
+        return {
+          name:  `${m.name}: ${tier.charAt(0).toUpperCase() + tier.slice(1)}`,
+          emoji: emojis[tier],
+          desc:  reqs[tier],
+        };
+      }
+      return null;
+    }
+
+    /** Get a badge def from BADGE_DEFS or construct from mission badge ID. */
+    function getBadgeDef(id) {
+      return BADGE_DEFS[id] ?? getMissionBadgeDef(id) ?? null;
+    }
+
+    /** Show a badge detail modal (earned or locked). */
+    function showBadgeModal(badgeId) {
+      const data    = loadPlayerData();
+      const isEarned = data.player.badges.includes(badgeId);
+      const def     = getBadgeDef(badgeId);
+      if (!def) return;
+
+      const overlay = document.createElement('div');
+      overlay.className = 'badge-modal-overlay';
+
+      if (isEarned) {
+        overlay.innerHTML = `
+          <div class="badge-modal">
+            <span class="badge-modal-emoji" aria-hidden="true">${def.emoji}</span>
+            <h2 class="text-gold">${escapeHtml(def.name)}</h2>
+            <p class="text-secondary mt-2">${escapeHtml(def.desc)}</p>
+            <p class="text-success mt-2" style="font-weight:var(--font-weight-bold);font-size:var(--font-size-md)">
+              ✅ EARNED!
+            </p>
+            <button class="btn-primary mt-3" data-action="close-modal">Close</button>
+          </div>
+        `;
+      } else {
+        overlay.innerHTML = `
+          <div class="badge-modal locked-modal">
+            <span class="badge-modal-emoji" aria-hidden="true">🔒</span>
+            <h2 class="text-secondary">Locked Badge</h2>
+            <p class="text-secondary mt-2">
+              <strong style="color:var(--color-text-primary)">${escapeHtml(def.name)}</strong>
+            </p>
+            <p class="text-secondary mt-2">How to unlock: ${escapeHtml(def.desc)}</p>
+            <button class="btn-secondary mt-3" data-action="close-modal">Close</button>
+          </div>
+        `;
+      }
+
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay || e.target.dataset.action === 'close-modal') {
+          overlay.remove();
+        }
+      });
+      document.body.appendChild(overlay);
+    }
+
+    /** Fire fullscreen rank-up animation overlay on top of the victory screen. */
+    function triggerRankUpOverlay(rankUp) {
+      const newTitle = THEME.ranks[rankUp.to]?.title ?? 'Hero';
+      const overlay  = document.createElement('div');
+      overlay.className = 'rankup-overlay';
+      overlay.setAttribute('aria-live', 'polite');
+      overlay.innerHTML = `
+        <span class="rankup-icon-big" aria-hidden="true">🎉</span>
+        <div class="rankup-label">RANK UP!</div>
+        <div class="rankup-new-title">You are now a ${escapeHtml(newTitle)}!</div>
+        <div class="rankup-stars" aria-hidden="true">⭐ ⭐ ⭐</div>
+      `;
+      document.body.appendChild(overlay);
+      setTimeout(() => overlay.remove(), 2700);
+    }
+
     document.addEventListener('click', e => {
       const btn = e.target.closest('[data-action]');
       if (!btn) return;
@@ -10690,6 +12148,22 @@
         case 'view-badges':    showScreen('screen-badges');      break;
         case 'change-pin':     showChangePinFlow();              break;
         case 'reset-progress': showResetConfirm();               break;
+
+        /* ── Badge detail modal ──────────────────────────────── */
+        case 'badge-detail': {
+          const badgeId = btn.dataset.badgeId;
+          if (badgeId) showBadgeModal(badgeId);
+          break;
+        }
+        case 'close-modal': break; // handled by overlay listener
+
+        /* ── Champion Mission ────────────────────────────────── */
+        case 'view-champion':        showScreen('screen-champion');      break;
+        case 'start-champion':       startChampion();                    break;
+        case 'champion-select':      handleChampionSelectAnswer(btn.dataset.index); break;
+        case 'champion-check':       handleChampionCheckAnswer();        break;
+        case 'champion-retry':       showScreen('screen-champion');      break;
+        case 'champion-certificate': openChampionCertificate();          break;
 
         /* ── Session start ───────────────────────────────────── */
         case 'begin-training': startSession(); break;
@@ -10778,9 +12252,12 @@
     SCREEN_RENDERERS['screen-tutor']            = renderTutor;
     SCREEN_RENDERERS['screen-mission-complete'] = renderMissionComplete;
     SCREEN_RENDERERS['screen-victory']          = renderVictory;
-    SCREEN_RENDERERS['screen-badges']           = renderBadges;
-    SCREEN_RENDERERS['screen-mission-map']      = renderMissionMap;
-    SCREEN_RENDERERS['screen-parent']           = renderParent;
+    SCREEN_RENDERERS['screen-badges']            = renderBadges;
+    SCREEN_RENDERERS['screen-mission-map']       = renderMissionMap;
+    SCREEN_RENDERERS['screen-parent']            = renderParent;
+    SCREEN_RENDERERS['screen-champion']          = renderChampion;
+    SCREEN_RENDERERS['screen-champion-q']        = renderChampionQ;
+    SCREEN_RENDERERS['screen-champion-result']   = renderChampionResult;
 
     /* -----------------------------------------------------------
        10. APP INIT
