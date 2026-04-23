@@ -9543,7 +9543,7 @@
 
       // Only set auto-advance if tutor trigger hasn't already set a timer
       if (!STATE.question.autoAdvanceTimer) {
-        const delay = isCorrect ? 1800 : 2200;
+        const delay = isCorrect ? 1800 : 4000;
         STATE.question.autoAdvanceTimer = setTimeout(() => {
           STATE.session.questionIndex++;
           advanceToNextQuestion();
@@ -11521,7 +11521,10 @@
       recordQuestionResult(q.id, isCorrect);
 
       renderChampionFeedback(isCorrect, ppEarned, q.explanation, detailHtml);
-      setTimeout(() => advanceChampionQuestion(), isCorrect ? 1800 : 2400);
+      STATE.question.autoAdvanceTimer = setTimeout(() => {
+        STATE.question.autoAdvanceTimer = null;
+        advanceChampionQuestion();
+      }, isCorrect ? 1800 : 4000);
     }
 
     function renderChampionFeedback(isCorrect, ppEarned, explanation, detailHtml) {
@@ -11543,6 +11546,9 @@
             <p style="color:var(--color-warning);font-size:var(--font-size-md);font-weight:var(--font-weight-bold)">Not quite — keep going!</p>
             ${detailHtml || ''}
             <p style="color:var(--color-text-primary);font-size:var(--font-size-base);margin-top:var(--space-1);line-height:var(--line-height-base)">${escapeHtml(explanation)}</p>
+            <button class="btn-primary btn-primary-full mt-2" data-action="champion-next">
+              NEXT →
+            </button>
           </div>`;
       }
     }
@@ -12162,6 +12168,10 @@
         case 'start-champion':       startChampion();                    break;
         case 'champion-select':      handleChampionSelectAnswer(btn.dataset.index); break;
         case 'champion-check':       handleChampionCheckAnswer();        break;
+        case 'champion-next':
+          if (STATE.question.autoAdvanceTimer) { clearTimeout(STATE.question.autoAdvanceTimer); STATE.question.autoAdvanceTimer = null; }
+          advanceChampionQuestion();
+          break;
         case 'champion-retry':       showScreen('screen-champion');      break;
         case 'champion-certificate': openChampionCertificate();          break;
 
